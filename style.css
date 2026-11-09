@@ -131,10 +131,14 @@ h2 {
     font-weight: bold;
     transition: 0.2s;
 }
-.action-btn:hover { background: #5a9bc4; }
-.action-btn:disabled { background: #444; color: #777; cursor: not-allowed; }
+.action-btn:hover:not(:disabled) { background: #5a9bc4; }
+.action-btn:disabled {
+    background: #444 !important;
+    color: #777 !important;
+    cursor: not-allowed;
+}
 .buy-btn { background: #2a9d8f; }
-.buy-btn:hover { background: #35c7b6; }
+.buy-btn:hover:not(:disabled) { background: #35c7b6; }
 
 .log-window {
     height: 150px;
