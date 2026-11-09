@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Метро 2033: Настольная игра</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="map-container">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div id="turn-indicator">
+                Ход: <span id="current-player-name">Красная линия</span><br>
+                <span style="font-size: 14px; color: #aaa;">Фаза: <span id="current-phase">Ресурсы</span></span>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h2>Игроки</h2>
+            <div id="players-list" class="players-grid"></div>
+
+            <h2>Ваши карточки (Снаряжение)</h2>
+            <div id="cards-area" class="cards-container">
+                <div class="card" id="card-akm" onclick="buyCard('akm', 1, 1)">
+                    <div class="card-title">АКМ</div>
+                    <div class="card-desc">+1 к силе армии</div>
+                    <div class="card-price">Стоимость: 🐷1 🔫1</div>
+                </div>
+                <div class="card" id="card-armor" onclick="buyCard('armor', 1, 1)">
+                    <div class="card-title">Бронежилет</div>
+                    <div class="card-desc">+1 к силе армии</div>
+                    <div class="card-price">Стоимость: 🐷1 🔫1</div>
+                </div>
+            </div>
+
+            <h2>Управление</h2>
+            <div class="controls">
+                <button id="btn-next-phase" class="action-btn">Следующая фаза ➔</button>
+                <button id="btn-buy-army" class="action-btn buy-btn">Нанять +1 армию (1 Свинья + 1 Патрон)</button>
+                <button id="btn-get-quest" class="action-btn" style="background: #f1c40f; color: #000; margin-top: 5px;">Взять задание</button>
+            </div>
+
+            <h2>Ваше задание</h2>
+            <div id="quest-box" style="background: #333; padding: 10px; border-radius: 5px; border-left: 4px solid #f1c40f; min-height: 40px; font-size: 14px;">
+                Нет активного задания
+            </div>
+
+            <h2>Журнал событий</h2>
+            <div id="log" class="log-window"></div>
+        </div>
+    </div>
+
+    <!-- ОКНО УГРОЗЫ -->
+    <div id="threat-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="threat-name">Название угрозы</h2>
+            <div class="threat-icon">👹</div>
+            <p id="threat-desc">Описание...</p>
+            <div class="threat-stats">
+                Сила угрозы: <span id="threat-power">0</span>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="closeThreatModal()" class="btn-cancel">Отступить</button>
+                <button onclick="resolveThreatFight()" class="btn-fight">⚔️ В Бой!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОКНО ДЕЙСТВИЙ ГЕРОЯ -->
+    <div id="hero-modal" class="modal">
+        <div class="modal-content" style="border-color: #f1c40f;">
+            <h2>Действия героя</h2>
+            <p>Вы прибыли на станцию <b id="hero-target-name"></b>.</p>
+            <div class="modal-buttons" style="flex-direction: column;">
+                <button onclick="heroAttack()" id="btn-hero-attack" class="btn-fight" style="width: 100%; margin-bottom: 10px;">⚔️ Атаковать станцию</button>
+                <button onclick="heroGather()" id="btn-hero-gather" class="action-btn buy-btn" style="width: 100%; margin-bottom: 10px;">⛏️ Собрать ресурсы</button>
+                <button onclick="endHeroTurn()" class="btn-cancel" style="width: 100%;">Завершить ход</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
